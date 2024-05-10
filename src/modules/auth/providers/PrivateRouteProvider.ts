@@ -9,7 +9,8 @@ type Props = {
 };
 
 const PrivateRouteProvider: FC<Props> = ({ children }) => {
-  const accessToken = '';
+  const accessToken =
+    typeof window !== 'undefined' ? localStorage.getItem('accessToken') || '' : '';
 
   const router = useRouter();
   const pathname = usePathname();
