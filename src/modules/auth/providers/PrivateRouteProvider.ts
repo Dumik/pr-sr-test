@@ -3,6 +3,7 @@
 import { FC, ReactNode, useEffect } from 'react';
 
 import { usePathname, useRouter } from 'next/navigation';
+import { AuthLocalNameTypes } from '../types';
 
 type Props = {
   children: ReactNode;
@@ -10,7 +11,9 @@ type Props = {
 
 const PrivateRouteProvider: FC<Props> = ({ children }) => {
   const accessToken =
-    typeof window !== 'undefined' ? localStorage.getItem('accessToken') || '' : '';
+    typeof window !== 'undefined'
+      ? localStorage.getItem(AuthLocalNameTypes.ACCESS_TOKEN) || ''
+      : '';
 
   const router = useRouter();
   const pathname = usePathname();

@@ -1,5 +1,7 @@
 'use client';
 
-const Home = () => <div />;
+import { ProductsPage } from '@/modules/product';
+
+const Home = () => <ProductsPage />;
 
 export default Home;

@@ -1,5 +1,11 @@
+import { Header } from '@/modules/core';
+
 const ProductsPage = () => {
-  return <div> </div>;
+  return (
+    <div>
+      <Header />
+    </div>
+  );
 };
 
 export default ProductsPage;
