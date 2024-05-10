@@ -14,9 +14,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const inputClass = size ? `form-control form-control-${size}` : 'form-control';
 
     return (
-      <div className='form-group'>
-        <input type={type} className={inputClass} placeholder={placeholder} ref={ref} {...props} />
-      </div>
+      <input type={type} className={inputClass} placeholder={placeholder} ref={ref} {...props} />
     );
   },
 );
