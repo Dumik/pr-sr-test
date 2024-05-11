@@ -13,20 +13,20 @@ const Header = () => {
     localStorage.removeItem(AuthLocalNameTypes.ACCESS_TOKEN);
     router.push('/auth');
   };
+
   return (
-    <nav className='navbar navbar-expand-lg bg-body-tertiary'>
+    <div className='navbar navbar-expand-lg bg-body-tertiary sticky-top'>
       <div className='container-fluid'>
         <Link className='navbar-brand' href='/'>
           <PixLogo size={32} />
         </Link>
-
         <button
-          className='btn btn-link text-decoration-none d-flex align-items-center '
+          className='btn btn-link text-decoration-none d-flex align-items-center fs-6 fw-medium'
           onClick={handleLogOut}>
           Log Out <CaretRight weight='bold' />
         </button>
       </div>
-    </nav>
+    </div>
   );
 };
 export default Header;

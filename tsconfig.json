@@ -22,7 +22,7 @@
       "@/modules/*": ["./src/modules/*"],
       "@/core/*": ["./src/modules/core/*"],
       "@/auth/*": ["./src/modules/auth/*"],
-      "@/dashboard/*": ["./src/modules/product/*"]
+      "@/product/*": ["./src/modules/product/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
