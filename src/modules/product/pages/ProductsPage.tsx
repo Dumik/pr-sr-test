@@ -131,7 +131,7 @@ const ProductsPage = () => {
         searchValue={searchQuery}
         toggleSidebar={() => setIsOpenSidebar((prev) => !prev)}
       />
-      <div className='container grid my-5'>
+      <div className='container-lg grid my-5'>
         <div className='row'>
           {mobileScreen ? (
             <Sidebar
@@ -177,7 +177,7 @@ const ProductsPage = () => {
                 <div
                   className='card shadow-sm border-0 sticky-top p-3 mt-2 overflow-scroll'
                   style={{
-                    maxHeight: 'calc(100vh - 160px)',
+                    maxHeight: 'calc(100vh - 200px)',
                     top: '100px',
                   }}>
                   <span className='fw-semibold fs-5'>Categories</span>
