@@ -1,0 +1,17 @@
+.btn-sidebar:hover {
+  text-decoration: underline !important;
+  color: black !important;
+  transition: 0.3 !important;
+}
+
+.btn-sidebar-active {
+  text-decoration: underline !important;
+  color: black !important;
+  transition: 0.3 !important;
+}
+
+.product-card:hover {
+  background-color: #00000004 !important;
+  transition: 0.3 !important;
+  cursor: pointer;
+}

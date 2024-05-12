@@ -27,7 +27,7 @@ const SignInForm = () => {
   };
 
   const onSubmit = (data: SignInFormData) => {
-    const accessToken = `user-${data.email}`;
+    const accessToken = `${data.email}`;
 
     localStorage.setItem(AuthLocalNameTypes.ACCESS_TOKEN, accessToken);
     router.push('/');

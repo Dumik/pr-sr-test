@@ -9,29 +9,27 @@ type CardProps = {
 
 const Card = ({ image, title, description, price }: CardProps) => {
   return (
-    <div className='card shadow-sm h-100 p-2'>
-      {/* <Image
-        src={image}
-        width={200}
-        height={200}
-        alt=''
-        className='w-auto object-fit-cover rounded-1'
-        style={{ maxHeight: 300, width: 'auto' }}
-      /> */}
-      <Image
-        src={image}
-        width='0'
-        height='0'
-        sizes='100vw'
-        style={{ width: '100%', height: 'auto', maxHeight: 200, objectFit: 'cover' }}
-        priority
-        alt=''
-      />
-      <div className='pt-2'>
-        <h6>{title}</h6>
-        <p className='fs-6'>{description}</p>
-        <p>Price: ${price}</p>
+    <div className='card shadow-sm h-100 p-2 border-0 d-flex flex-column justify-content-between product-card'>
+      <div>
+        <div className='position-relative' style={{ height: 200 }}>
+          <Image
+            src={image}
+            fill
+            priority
+            alt=''
+            sizes={'(min-width: 80px) 100%'}
+            style={{
+              objectFit: 'contain',
+              placeSelf: 'center',
+            }}
+          />
+        </div>
+        <div className='pt-2'>
+          <h6>{title}</h6>
+          <p className='fs-6'>{description}</p>
+        </div>
       </div>
+      <p>Price: ${price}</p>
     </div>
   );
 };

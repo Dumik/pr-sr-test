@@ -36,7 +36,7 @@ const SignUpForm = () => {
   };
 
   const onSubmit = (data: SignUpFormData) => {
-    const accessToken = `user-${data.email}`;
+    const accessToken = `${data.email}`;
 
     localStorage.setItem(AuthLocalNameTypes.ACCESS_TOKEN, accessToken);
     router.push('/');
