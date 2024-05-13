@@ -141,7 +141,7 @@ const ProductsPage = () => {
               {categories.map((category) => (
                 <div key={category}>
                   <button
-                    className={`btn btn-link text-decoration-none  text-body-tertiary  p-1  btn-sidebar ${category == selectedCategory ? 'btn-sidebar-active' : ''}`}
+                    className={`btn btn-link text-decoration-none text-body-tertiary p-1 btn-sidebar ${category == selectedCategory ? 'btn-sidebar-active' : ''}`}
                     style={{
                       textTransform: 'capitalize',
                     }}
@@ -161,7 +161,7 @@ const ProductsPage = () => {
 
               {!loadingCategories ? (
                 <div
-                  className='border-0 sticky-top overflow-scroll'
+                  className='border-0 sticky-top '
                   style={{
                     maxHeight: 'calc(100vh - 200px)',
                     top: '100px',
@@ -181,22 +181,29 @@ const ProductsPage = () => {
                       <X size={14} /> Clear Filters
                     </button>
                   ) : null}
-                  {categories.map((category) => (
-                    <div key={category}>
-                      <button
-                        className={`btn btn-link text-decoration-none  text-body-tertiary pt-1 pb-0 btn-sidebar 
+                  <div
+                    className='overflow-scroll'
+                    style={{
+                      maxHeight: 'calc(100vh - 200px)',
+                      top: '100px',
+                    }}>
+                    {categories.map((category) => (
+                      <div key={category}>
+                        <button
+                          className={`btn btn-link text-decoration-none text-body-tertiary pt-1 pb-0 btn-sidebar 
                          ${category == selectedCategory ? 'btn-sidebar-active' : ''}
                          `}
-                        style={{
-                          textTransform: 'capitalize',
-                        }}
-                        onClick={() => {
-                          setSelectedCategory(category);
-                        }}>
-                        {category}
-                      </button>
-                    </div>
-                  ))}
+                          style={{
+                            textTransform: 'capitalize',
+                          }}
+                          onClick={() => {
+                            setSelectedCategory(category);
+                          }}>
+                          {category}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               ) : null}
             </div>
