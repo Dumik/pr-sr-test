@@ -1,11 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-import { Header, Input, Sidebar, SidebarPlaceholder, useBreakpoint } from '@/modules/core';
+import { Header, Sidebar, SidebarPlaceholder, useBreakpoint } from '@/modules/core';
 import { Card, CardPlaceholder } from '@/product/components';
 import { AuthLocalNameTypes } from '@/modules/auth';
 import { X } from '@phosphor-icons/react';
@@ -107,7 +106,7 @@ const ProductsPage = () => {
 
   useEffect(() => {
     if (!accessToken) {
-      toast('You are not logged in', { type: 'info', position: 'top-right' });
+      toast('Please Sign In for additional features', { type: 'info', position: 'top-right' });
     }
   }, []);
 
@@ -125,6 +124,20 @@ const ProductsPage = () => {
               isOpen={isOpenSidebar}
               handleClose={() => setIsOpenSidebar(false)}
               title='Categories'>
+              {selectedCategory || searchQuery ? (
+                <button
+                  className='btn btn-link text-decoration-none fw-medium text-black p-1 btn-sidebar d-flex align-items-center gap-1 pt-2'
+                  style={{
+                    textTransform: 'capitalize',
+                  }}
+                  onClick={() => {
+                    setSelectedCategory('');
+                    setSearchQuery('');
+                    setCurrentPage(1);
+                  }}>
+                  <X size={14} /> Clear Filters
+                </button>
+              ) : null}
               {categories.map((category) => (
                 <div key={category}>
                   <button
@@ -140,20 +153,6 @@ const ProductsPage = () => {
                   </button>
                 </div>
               ))}
-              {selectedCategory || searchQuery ? (
-                <button
-                  className='btn btn-link text-decoration-none fw-medium text-black p-1 btn-sidebar d-flex align-items-center gap-1 pt-2'
-                  style={{
-                    textTransform: 'capitalize',
-                  }}
-                  onClick={() => {
-                    setSelectedCategory('');
-                    setSearchQuery('');
-                    setCurrentPage(1);
-                  }}>
-                  <X size={14} /> Clear Filters
-                </button>
-              ) : null}
             </Sidebar>
           ) : null}
           {!mobileScreen && (
@@ -162,12 +161,26 @@ const ProductsPage = () => {
 
               {!loadingCategories ? (
                 <div
-                  className='card shadow-sm border-0 sticky-top p-3 pb-5 mt-2 overflow-scroll'
+                  className='card shadow-sm border-0 sticky-top p-3 mt-2 overflow-scroll'
                   style={{
                     maxHeight: 'calc(100vh - 200px)',
                     top: '100px',
                   }}>
                   <span className='fw-semibold fs-5'>Categories</span>
+                  {selectedCategory || searchQuery ? (
+                    <button
+                      className='btn btn-link text-decoration-none fw-medium text-black p-2 btn-sidebar d-flex align-items-center gap-1'
+                      style={{
+                        textTransform: 'capitalize',
+                      }}
+                      onClick={() => {
+                        setSelectedCategory('');
+                        setSearchQuery('');
+                        setCurrentPage(1);
+                      }}>
+                      <X size={14} /> Clear Filters
+                    </button>
+                  ) : null}
                   {categories.map((category) => (
                     <div key={category}>
                       <button
@@ -184,20 +197,6 @@ const ProductsPage = () => {
                       </button>
                     </div>
                   ))}
-                  {selectedCategory || searchQuery ? (
-                    <button
-                      className='btn btn-link text-decoration-none fw-medium text-black p-2 btn-sidebar d-flex align-items-center gap-1'
-                      style={{
-                        textTransform: 'capitalize',
-                      }}
-                      onClick={() => {
-                        setSelectedCategory('');
-                        setSearchQuery('');
-                        setCurrentPage(1);
-                      }}>
-                      <X size={14} /> Clear Filters
-                    </button>
-                  ) : null}
                 </div>
               ) : null}
             </div>
@@ -207,10 +206,10 @@ const ProductsPage = () => {
               <>
                 <div className='col-12 d-flex flex-column  align-items-center justify-content-center '>
                   <span className='fs-6 text-dark text-center'>
-                    Product are not available or not found
+                    Products are not available or not found.
                   </span>
                   <span className='fs-5 text-dark text-center'>
-                    Please write to us to find out when the product will be available{' '}
+                    Please inquire to find out when they will be available.
                   </span>
                   <span className='fs-5 text-dark'>
                     <a href='mailto:your@email.com'>your@email.com</a>

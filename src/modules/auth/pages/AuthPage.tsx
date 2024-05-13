@@ -1,12 +1,20 @@
 'use client';
 import React, { useState } from 'react';
 import { SignInForm, SignUpForm } from '@/auth/components';
+import { ArrowLeft, CaretLeft } from '@phosphor-icons/react';
+import { useRouter } from 'next/navigation';
 
 const AuthPage = () => {
+  const router = useRouter();
+
   const [authToggle, setAuthToggle] = useState(false);
 
   const handleToggle = () => {
     setAuthToggle((prevAuthToggle) => !prevAuthToggle);
+  };
+
+  const handleGoBack = () => {
+    router.push('/');
   };
 
   return (
@@ -14,6 +22,9 @@ const AuthPage = () => {
       <div className='row justify-content-center'>
         <div className='col-md-8 col-lg-6 col-xl-4'>
           <div className='container-fluid'>
+            <button className='btn btn-light mb-3 d-flex align-items-center' onClick={handleGoBack}>
+              <CaretLeft weight='bold' /> Back
+            </button>
             <div className='card p-4 shadow-sm'>
               <h2 className='mb-4 text-center'>{authToggle ? 'Sign Up' : 'Sign In'}</h2>
               {authToggle ? <SignUpForm /> : <SignInForm />}

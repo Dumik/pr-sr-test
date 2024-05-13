@@ -59,7 +59,7 @@ const SignUpForm = () => {
       <div className='position-relative pb-4'>
         <Input
           type='email'
-          placeholder='Enter email'
+          placeholder='Email'
           //@ts-ignore
           size={InputSizeEnum.Large}
           {...register('email', { required: 'Email is required' })}

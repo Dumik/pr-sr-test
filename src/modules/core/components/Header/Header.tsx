@@ -35,10 +35,10 @@ const Header = ({ onChangeSearch, searchValue, toggleSidebar }: HeaderProps) => 
 
   return (
     <div className='navbar navbar-expand-lg bg-body-tertiary sticky-top'>
-      <div className='container-fluid'>
+      <div className='container-lg'>
         <div>
           {mobileScreen ? (
-            <button className='btn btn-lick text-decoration-none me-2 ' onClick={toggleSidebar}>
+            <button className='btn btn-lick text-decoration-none me-2' onClick={toggleSidebar}>
               <TextIndent size={32} />
             </button>
           ) : null}
