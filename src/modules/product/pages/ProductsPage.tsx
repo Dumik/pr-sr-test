@@ -161,7 +161,7 @@ const ProductsPage = () => {
 
               {!loadingCategories ? (
                 <div
-                  className='card shadow-sm border-0 sticky-top p-3 mt-2 overflow-scroll'
+                  className='border-0 sticky-top overflow-scroll'
                   style={{
                     maxHeight: 'calc(100vh - 200px)',
                     top: '100px',
@@ -201,7 +201,7 @@ const ProductsPage = () => {
               ) : null}
             </div>
           )}
-          <div className='col-12 col-md-8 col-lg-9 d-flex flex-wrap'>
+          <div className='col-12 col-md-8 col-lg-9 d-flex flex-wrap p-0'>
             {!productsData.products.length && !loading ? (
               <>
                 <div className='col-12 d-flex flex-column  align-items-center justify-content-center '>
