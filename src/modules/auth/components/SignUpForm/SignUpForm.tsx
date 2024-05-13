@@ -9,6 +9,7 @@ import { AuthLocalNameTypes } from '@/auth/types';
 import { useRouter } from 'next/navigation';
 
 type SignUpFormData = {
+  name: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -36,14 +37,25 @@ const SignUpForm = () => {
   };
 
   const onSubmit = (data: SignUpFormData) => {
-    const accessToken = `${data.email}`;
-
-    localStorage.setItem(AuthLocalNameTypes.ACCESS_TOKEN, accessToken);
+    localStorage.setItem(AuthLocalNameTypes.ACCESS_TOKEN, data.email);
+    localStorage.setItem(AuthLocalNameTypes.USER_NAME, data.name);
     router.push('/');
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='d-flex flex-column'>
+      <div className='position-relative pb-4'>
+        <Input
+          type='text'
+          placeholder='Name'
+          //@ts-ignore
+          size={InputSizeEnum.Large}
+          {...register('name', { required: 'Name is required' })}
+        />
+        {errors.name && (
+          <small className='text-danger position-absolute bottom-0'>{errors.name.message}</small>
+        )}
+      </div>
       <div className='position-relative pb-4'>
         <Input
           type='email'

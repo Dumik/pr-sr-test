@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { CodepenLogo, SignOut, TextIndent, User } from '@phosphor-icons/react';
+import { MagnifyingGlass, SignOut, TextIndent, User } from '@phosphor-icons/react';
 import { Dropdown } from 'react-bootstrap';
 import Link from 'next/link';
 
@@ -22,13 +22,16 @@ const Header = ({ onChangeSearch, searchValue, toggleSidebar }: HeaderProps) => 
 
   const handleLogOut = () => {
     localStorage.removeItem(AuthLocalNameTypes.ACCESS_TOKEN);
-    router.push('/auth');
+    router.refresh();
   };
 
   const userEmail =
     typeof window !== 'undefined'
       ? localStorage.getItem(AuthLocalNameTypes.ACCESS_TOKEN) || ''
       : '';
+
+  const userName =
+    typeof window !== 'undefined' ? localStorage.getItem(AuthLocalNameTypes.USER_NAME) || '' : '';
 
   return (
     <div className='navbar navbar-expand-lg bg-body-tertiary sticky-top'>
@@ -39,8 +42,8 @@ const Header = ({ onChangeSearch, searchValue, toggleSidebar }: HeaderProps) => 
               <TextIndent size={32} />
             </button>
           ) : null}
-          <Link className='navbar-brand' href='/'>
-            <CodepenLogo size={32} className='text-primary' />
+          <Link className='navbar-brand fw-semibold' href='/'>
+            Logo
           </Link>
         </div>
         {!smallScreen && (
@@ -54,20 +57,29 @@ const Header = ({ onChangeSearch, searchValue, toggleSidebar }: HeaderProps) => 
               onChange={(e) => {
                 onChangeSearch(e.target.value);
               }}
+              icon={<MagnifyingGlass />}
             />
           </div>
         )}
-        <Dropdown>
-          <Dropdown.Toggle variant='link' id='dropdown-basic' className='text-decoration-none'>
-            <User size={24} />
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <div className='px-3 pb-1 border-bottom'>{userEmail}</div>
-            <Dropdown.Item onClick={handleLogOut}>
-              Log Out <SignOut weight='bold' />
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+        {userEmail ? (
+          <Dropdown>
+            <Dropdown.Toggle variant='link' id='dropdown-basic' className='text-decoration-none'>
+              <span className='fw-medium '>{userName || 'Oleg'}</span> <User size={24} />
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <div className='px-3 pb-1 border-bottom'>{userEmail}</div>
+              <Dropdown.Item onClick={handleLogOut}>
+                Log Out <SignOut weight='bold' />
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        ) : (
+          <div className='d-flex align-items-center'>
+            <button className='btn btn-link fw-semibold fs-6' onClick={() => router.push('/auth')}>
+              Sign In
+            </button>
+          </div>
+        )}
       </div>
       {smallScreen && (
         <div className='d-flex col-12 py-2 px-4'>

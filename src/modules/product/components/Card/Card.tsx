@@ -26,7 +26,7 @@ const Card = ({ image, title, description, price }: CardProps) => {
         </div>
         <div className='pt-2'>
           <h6>{title}</h6>
-          <p className='fs-6'>{description}</p>
+          <p className='fs-6 fw-light'>{description}</p>
         </div>
       </div>
       <p>Price: ${price}</p>

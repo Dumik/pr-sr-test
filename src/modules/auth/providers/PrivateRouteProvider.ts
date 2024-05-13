@@ -27,14 +27,6 @@ const PrivateRouteProvider: FC<Props> = ({ children }) => {
       router.push('/');
       return;
     }
-
-    if (
-      ((!isPublicRoute && !isHomePage && !isUndefinedRoute) || pathname === '/') &&
-      !accessToken
-    ) {
-      router.push('/auth');
-      return;
-    }
   }, [isPublicRoute, isHomePage, isUndefinedRoute, accessToken, pathname]);
 
   return children;

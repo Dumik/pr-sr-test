@@ -19,7 +19,6 @@ type ProductType = {
 };
 
 const ProductsPage = () => {
-  const router = useRouter();
   const mobileScreen = useBreakpoint('sm');
 
   const [productsData, setProductsData] = useState<{
@@ -35,6 +34,19 @@ const ProductsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [categories, setCategories] = useState([]);
+
+  const accessToken =
+    typeof window !== 'undefined'
+      ? localStorage.getItem(AuthLocalNameTypes.ACCESS_TOKEN) || ''
+      : '';
+
+  const totalPages = productsData.total && Math.ceil(productsData.total / 10);
+
+  const onChangeSearch = (value: string) => {
+    setSearchQuery(value);
+    setSelectedCategory('');
+    setCurrentPage(1);
+  };
 
   useEffect(() => {
     setLoadingCategories(true);
@@ -93,36 +105,11 @@ const ProductsPage = () => {
     return () => clearTimeout(delayTimer);
   }, [searchQuery, currentPage, selectedCategory]);
 
-  const totalPages = productsData.total && Math.ceil(productsData.total / 10);
-
-  const onChangeSearch = (value: string) => {
-    setSearchQuery(value);
-    setSelectedCategory('');
-    setCurrentPage(1);
-  };
-
-  const accessToken =
-    typeof window !== 'undefined'
-      ? localStorage.getItem(AuthLocalNameTypes.ACCESS_TOKEN) || ''
-      : '';
-
-  if (!accessToken) {
-    return (
-      <div
-        className='container d-flex align-items-center justify-content-center'
-        style={{ height: '100vh' }}>
-        <div className='d-flex flex-column'>
-          <span className='fs-4'>You must be logged in to view this page</span>
-          <button
-            type='button'
-            className='btn btn-link text-center fs-5'
-            onClick={() => router.push('/auth')}>
-            Sign In
-          </button>
-        </div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (!accessToken) {
+      toast('You are not logged in', { type: 'info', position: 'top-right' });
+    }
+  }, []);
 
   return (
     <>
@@ -131,7 +118,7 @@ const ProductsPage = () => {
         searchValue={searchQuery}
         toggleSidebar={() => setIsOpenSidebar((prev) => !prev)}
       />
-      <div className='container-lg grid my-5'>
+      <div className='container-lg grid my-5 position-relative'>
         <div className='row'>
           {mobileScreen ? (
             <Sidebar
@@ -175,7 +162,7 @@ const ProductsPage = () => {
 
               {!loadingCategories ? (
                 <div
-                  className='card shadow-sm border-0 sticky-top p-3 mt-2 overflow-scroll'
+                  className='card shadow-sm border-0 sticky-top p-3 pb-5 mt-2 overflow-scroll'
                   style={{
                     maxHeight: 'calc(100vh - 200px)',
                     top: '100px',
@@ -219,9 +206,14 @@ const ProductsPage = () => {
             {!productsData.products.length && !loading ? (
               <>
                 <div className='col-12 d-flex flex-column  align-items-center justify-content-center '>
-                  <span className='fs-4 fw-medium text-dark'>Products aren't found in stock</span>
-                  <span className='fs-5 fw-medium text-dark'>
-                    Please contact a manager at <a href='mailto:your@email.com'>your@email.com</a>
+                  <span className='fs-6 text-dark text-center'>
+                    Product are not available or not found
+                  </span>
+                  <span className='fs-5 text-dark text-center'>
+                    Please write to us to find out when the product will be available{' '}
+                  </span>
+                  <span className='fs-5 text-dark'>
+                    <a href='mailto:your@email.com'>your@email.com</a>
                   </span>
                 </div>
               </>
@@ -252,9 +244,9 @@ const ProductsPage = () => {
             )}
           </div>
         </div>
-        {productsData.total
-          ? productsData.total > 10 && (
-              <div className='row justify-content-center mt-4'>
+        <div className='row justify-content-center mt-4'>
+          {productsData.total
+            ? productsData.total > 10 && (
                 <nav aria-label='Page navigation example'>
                   <ul className='pagination d-flex justify-content-center flex-wrap'>
                     {Array.from({ length: totalPages! }, (_, index) => (
@@ -268,9 +260,9 @@ const ProductsPage = () => {
                     ))}
                   </ul>
                 </nav>
-              </div>
-            )
-          : null}
+              )
+            : null}
+        </div>
       </div>
     </>
   );
